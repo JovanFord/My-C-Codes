@@ -25,12 +25,12 @@ using namespace std;
 bool isPalindrome(string);
 
 int main(){
-    isPalindrome("pizza");
+    isPalindrome("A NUT FOR A JAR OF TUNA");
 }
 
 bool isPalindrome(string s) {
         string ns;
-        for (int i = s.size(); i > 0; i--){
+        for (int i = s.size() - 1; i >= 0; i--){
             if (s[i] == ' '){
                 continue;
             }
