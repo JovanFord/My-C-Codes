@@ -4,5 +4,3 @@ def solution(year):
         return cen
     else:
         return cen + 1
-
-solution(1000)
