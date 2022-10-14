@@ -307,99 +307,96 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
     string temp1, temp2, convert;
     char test;
     bool isNum = false;
-    while (gameStatus && validMove)
+    for (int i = 1; i <= players; i++)
     {
-        for (int i = 1; i <= players; i++)
+        displayBoard(m, n, currentBoard);
+        validMove = true;
+        int row1;
+        int column1;
+        while (validMove && gameStatus)
         {
-            displayBoard(m, n, currentBoard);
-            validMove = true;
-            int row1;
-            int column1;
-            while (validMove && gameStatus)
+            splitName(playerNames[pturn]);
+            cout << " make your move:";
+            cin >> move;
+            row1 = move[0];
+            while (row1 >= 32)
             {
-                splitName(playerNames[pturn]);
-                cout << " make your move:";
-                cin >> move;
-                row1 = move[0];
-                while (row1 >= 32)
+                if (row1 >= 32)
                 {
-                    if (row1 >= 32)
-                    {
-                        row1 -= 32;
-                    }
-                    else if (row1 < 32)
-                    {
-                        break;
-                    }
+                    row1 -= 32;
                 }
-                row1 -= 1;
-                temp1 = move[1];
-                temp2 = move[2];
-                convert = temp1 + temp2;
-                while (!isNum)
+                else if (row1 < 32)
                 {
-                    try
+                    break;
+                }
+            }
+            row1 -= 1;
+            temp1 = move[1];
+            temp2 = move[2];
+            convert = temp1 + temp2;
+            while (!isNum)
+            {
+                try
+                {
+                    column1 = stoi(convert);
+                    if (column1 < 0 || column1 > n)
+                        throw column1;
+                }
+                catch (...)
+                {
+                    cout << "Error, try again:";
+                    cin >> move;
+                    row1 = move[0];
+                    while (row1 >= 32)
                     {
-                        column1 = stoi(convert);
-                        if (column1 < 0 || column1 > n)
-                            throw column1;
-                    }
-                    catch (...)
-                    {
-                        cout << "Error, try again:";
-                        cin >> move;
-                        row1 = move[0];
-                        while (row1 >= 32)
+                        if (row1 >= 32)
                         {
-                            if (row1 >= 32)
-                            {
-                                row1 -= 32;
-                            }
-                            else if (row1 < 32)
-                            {
-                                break;
-                            }
+                            row1 -= 32;
                         }
-                        row1 -= 1;
-                        temp1 = move[1];
-                        temp2 = move[2];
-                        convert = temp1 + temp2;
-                    }
-                    cout << "temp1:" << temp1 << endl;
-                    cout << "temp2:" << temp2 << endl;
-                    cout << "convert:" << convert << endl;
-                    for (int i = 0; i < convert.size(); i++)
-                    {
-                        if (convert[i] < '0' && convert[i] > '9')
+                        else if (row1 < 32)
                         {
-                            isNum = false;
-                        }
-                        else if (convert[i] >= '0' && convert[i] <= '9')
-                        {
-                            isNum = true;
                             break;
                         }
                     }
+                    row1 -= 1;
+                    temp1 = move[1];
+                    temp2 = move[2];
+                    convert = temp1 + temp2;
                 }
-                column1 = stoi(convert) - 1;
-                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n) && currentBoard[row1][column1] == ' ')
+                cout << "temp1:" << temp1 << endl;
+                cout << "temp2:" << temp2 << endl;
+                cout << "convert:" << convert << endl;
+                for (int j = 0; j < convert.size(); j++)
                 {
-                    validMove = false;
-                }
-                else
-                {
-                    cout << "You can't make that move, try again:" << endl;
-                    cin >> move;
-                }
-                currentBoard[row1][column1] = pieces[pturn];
-                pturn++;
-                if (i == players)
-                {
-                    pturn = 1;
+                    if (convert[j] < '0' && convert[j] > '9')
+                    {
+                        isNum = false;
+                    }
+                    else if (convert[j] >= '0' && convert[j] <= '9')
+                    {
+                        isNum = true;
+                        break;
+                    }
                 }
             }
-            checkWinner(gameStatus, m, n, currentBoard, players, playerNames, pturn, winCount, lossCount, drawCount);
+            // column1 = stoi(convert) - 1;
+            if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n) && currentBoard[row1][column1] == ' ')
+            {
+                validMove = false;
+            }
+            else
+            {
+                cout << "You can't make that move, try again:" << endl;
+                cin >> move;
+            }
+            currentBoard[row1][column1] = pieces[pturn];
+            pturn++;
+            if (i == players)
+            {
+                pturn = 1;
+            }
         }
+        checkWinner(gameStatus, m, n, currentBoard, players, playerNames, pturn, winCount, lossCount, drawCount);
     }
 }
 
