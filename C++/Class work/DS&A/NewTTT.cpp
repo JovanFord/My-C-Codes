@@ -313,10 +313,11 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
     string temp1, temp2, convert;
     char test;
     bool isNum = false;
-    while (gameStatus && moveTurn)
+    while (gameStatus && validMove)
     {
         for (int i = 1; i <= players; i++)
         {
+            validMove = true;
             while (validMove && gameStatus)
             {
                 splitName(playerNames[pturn]);
