@@ -13,10 +13,10 @@ void displayStats(int &, string[], int[], int[], int[]);
 
 const int rows = 12;
 const int columns = 14;
-const int players1 = 7;
-const int wins = 7;
-const int losses = 7;
-const int draws = 7;
+const int players1 = 8;
+const int wins = 8;
+const int losses = 8;
+const int draws = 8;
 
 int main()
 {
@@ -383,60 +383,6 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                         }
                     }
                 }
-                // for (int i = 0; i < convert.size(); i++)
-                // {
-                //     if (convert[i] >= 49 || convert[i] <= 57)
-                //     {
-                //         isNum = true;
-                //     }
-                //     else
-                //         isNum = false;
-                // }
-                // while (1)
-                // {
-                //     if (cin.fail() || !isNum)
-                //     {
-                //         cin.clear();
-                //         cin.ignore();
-                //         cout << "Error please try again: " << endl;
-                //         cin >> move;
-                //         row1 = move[0];
-                //         while (row1 >= 32)
-                //         {
-                //             if (row1 >= 32)
-                //             {
-                //                 row1 -= 32;
-                //             }
-                //             else if (row1 < 32)
-                //             {
-                //                 break;
-                //             }
-                //         }
-                //         row1 -= 1;
-                //         temp1 = move[1];
-                //         cout << "temp1:" << temp1 << endl;
-                //         temp2 = move[2];
-                //         cout << "temp2:" << temp2 << endl;
-                //         convert = temp1 + temp2;
-                //         cout << "convert:" << convert << endl;
-                //         for (int i = 0; i < convert.size(); i++)
-                //         {
-                //             if (convert[i] >= 49 || convert[i] <= 57)
-                //             {
-                //                 isNum = true;
-                //             }
-                //             else
-                //             {
-                //                 isNum = false;
-                //                 break;
-                //             }
-                //         }
-                //     }
-                //     if (isNum)
-                //     {
-                //         break;
-                //     }
-                // }
                 column1 = stoi(convert) - 1;
                 if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
@@ -461,7 +407,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
         {
             while (validMove && gameStatus)
             {
-                splitName(playerNames[2]);
+                splitName(playerNames[1]);
                 cout << " make your move:";
                 cin >> move;
                 row1 = move[0];
@@ -478,16 +424,65 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                 }
                 row1 -= 1;
                 temp1 = move[1];
+                cout << "temp1:" << temp1 << endl;
                 temp2 = move[2];
+                cout << "temp2:" << temp2 << endl;
                 convert = temp1 + temp2;
+                cout << "convert:" << convert << endl;
+                while (!isNum)
+                {
+                    try
+                    {
+                        column1 = stoi(convert);
+                        if (column1 < 0 || column1 > n)
+                            throw column1;
+                    }
+                    catch (...)
+                    {
+                        cout << "Error, try again:";
+                        cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
+                    }
+                    for (int i = 0; i < convert.size(); i++)
+                    {
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
+                    }
+                }
                 column1 = stoi(convert) - 1;
-                if ((move[0] < 'A' || move[0] > 'Z') || move[0] < 'a' || move[0] > 'z')
+                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
                     validMove = false;
                 }
                 else
                 {
                     cout << "You can't make that move, try again:" << endl;
+                    cin >> move;
                 }
                 if (currentBoard[row1][column1] != ' ')
                 {
@@ -496,6 +491,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                     currentBoard[row1][column1] = 'c';
                 }
                 currentBoard[row1][column1] = 'c';
+                pturn++;
             }
             if (players == 2)
             {
@@ -510,7 +506,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
         {
             while (validMove && gameStatus)
             {
-                splitName(playerNames[3]);
+                splitName(playerNames[1]);
                 cout << " make your move:";
                 cin >> move;
                 row1 = move[0];
@@ -527,24 +523,73 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                 }
                 row1 -= 1;
                 temp1 = move[1];
+                cout << "temp1:" << temp1 << endl;
                 temp2 = move[2];
+                cout << "temp2:" << temp2 << endl;
                 convert = temp1 + temp2;
+                cout << "convert:" << convert << endl;
+                while (!isNum)
+                {
+                    try
+                    {
+                        column1 = stoi(convert);
+                        if (column1 < 0 || column1 > n)
+                            throw column1;
+                    }
+                    catch (...)
+                    {
+                        cout << "Error, try again:";
+                        cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
+                    }
+                    for (int i = 0; i < convert.size(); i++)
+                    {
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
+                    }
+                }
                 column1 = stoi(convert) - 1;
-                if ((move[0] < 'A' || move[0] > 'Z') || move[0] < 'a' || move[0] > 'z')
+                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
                     validMove = false;
                 }
                 else
                 {
                     cout << "You can't make that move, try again:" << endl;
+                    cin >> move;
                 }
                 if (currentBoard[row1][column1] != ' ')
                 {
                     cout << "You can't make that move, try again:" << endl;
                     cin >> move;
-                    currentBoard[row1][column1] = 'd';
                 }
                 currentBoard[row1][column1] = 'd';
+                pturn++;
             }
             if (players == 3)
             {
@@ -559,7 +604,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
         {
             while (validMove && gameStatus)
             {
-                splitName(playerNames[4]);
+                splitName(playerNames[1]);
                 cout << " make your move:";
                 cin >> move;
                 row1 = move[0];
@@ -576,16 +621,65 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                 }
                 row1 -= 1;
                 temp1 = move[1];
+                cout << "temp1:" << temp1 << endl;
                 temp2 = move[2];
+                cout << "temp2:" << temp2 << endl;
                 convert = temp1 + temp2;
+                cout << "convert:" << convert << endl;
+                while (!isNum)
+                {
+                    try
+                    {
+                        column1 = stoi(convert);
+                        if (column1 < 0 || column1 > n)
+                            throw column1;
+                    }
+                    catch (...)
+                    {
+                        cout << "Error, try again:";
+                        cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
+                    }
+                    for (int i = 0; i < convert.size(); i++)
+                    {
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
+                    }
+                }
                 column1 = stoi(convert) - 1;
-                if ((move[0] < 'A' || move[0] > 'Z') || move[0] < 'a' || move[0] > 'z')
+                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
                     validMove = false;
                 }
                 else
                 {
                     cout << "You can't make that move, try again:" << endl;
+                    cin >> move;
                 }
                 if (currentBoard[row1][column1] != ' ')
                 {
@@ -594,6 +688,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                     currentBoard[row1][column1] = 'e';
                 }
                 currentBoard[row1][column1] = 'e';
+                pturn++;
             }
             if (players == 4)
             {
@@ -608,7 +703,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
         {
             while (validMove && gameStatus)
             {
-                splitName(playerNames[5]);
+                splitName(playerNames[1]);
                 cout << " make your move:";
                 cin >> move;
                 row1 = move[0];
@@ -625,16 +720,65 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                 }
                 row1 -= 1;
                 temp1 = move[1];
+                cout << "temp1:" << temp1 << endl;
                 temp2 = move[2];
+                cout << "temp2:" << temp2 << endl;
                 convert = temp1 + temp2;
+                cout << "convert:" << convert << endl;
+                while (!isNum)
+                {
+                    try
+                    {
+                        column1 = stoi(convert);
+                        if (column1 < 0 || column1 > n)
+                            throw column1;
+                    }
+                    catch (...)
+                    {
+                        cout << "Error, try again:";
+                        cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
+                    }
+                    for (int i = 0; i < convert.size(); i++)
+                    {
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
+                    }
+                }
                 column1 = stoi(convert) - 1;
-                if ((move[0] < 'A' || move[0] > 'Z') || move[0] < 'a' || move[0] > 'z')
+                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
                     validMove = false;
                 }
                 else
                 {
                     cout << "You can't make that move, try again:" << endl;
+                    cin >> move;
                 }
                 if (currentBoard[row1][column1] != ' ')
                 {
@@ -643,6 +787,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                     currentBoard[row1][column1] = 'f';
                 }
                 currentBoard[row1][column1] = 'f';
+                pturn++;
             }
             if (players == 5)
             {
@@ -657,7 +802,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
         {
             while (validMove && gameStatus)
             {
-                splitName(playerNames[6]);
+                splitName(playerNames[1]);
                 cout << " make your move:";
                 cin >> move;
                 row1 = move[0];
@@ -674,16 +819,65 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                 }
                 row1 -= 1;
                 temp1 = move[1];
+                cout << "temp1:" << temp1 << endl;
                 temp2 = move[2];
+                cout << "temp2:" << temp2 << endl;
                 convert = temp1 + temp2;
+                cout << "convert:" << convert << endl;
+                while (!isNum)
+                {
+                    try
+                    {
+                        column1 = stoi(convert);
+                        if (column1 < 0 || column1 > n)
+                            throw column1;
+                    }
+                    catch (...)
+                    {
+                        cout << "Error, try again:";
+                        cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
+                    }
+                    for (int i = 0; i < convert.size(); i++)
+                    {
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
+                    }
+                }
                 column1 = stoi(convert) - 1;
-                if ((move[0] < 'A' || move[0] > 'Z') || move[0] < 'a' || move[0] > 'z')
+                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
                     validMove = false;
                 }
                 else
                 {
                     cout << "You can't make that move, try again:" << endl;
+                    cin >> move;
                 }
                 if (currentBoard[row1][column1] != ' ')
                 {
@@ -692,6 +886,7 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                     currentBoard[row1][column1] = 'g';
                 }
                 currentBoard[row1][column1] = 'g';
+                pturn++;
             }
             if (players == 6)
             {
@@ -706,9 +901,8 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
         {
             while (validMove && gameStatus)
             {
-                splitName(playerNames[7]);
-                cout << endl
-                     << " make your move:";
+                splitName(playerNames[1]);
+                cout << " make your move:";
                 cin >> move;
                 row1 = move[0];
                 while (row1 >= 32)
@@ -724,24 +918,74 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                 }
                 row1 -= 1;
                 temp1 = move[1];
+                cout << "temp1:" << temp1 << endl;
                 temp2 = move[2];
+                cout << "temp2:" << temp2 << endl;
                 convert = temp1 + temp2;
+                cout << "convert:" << convert << endl;
+                while (!isNum)
+                {
+                    try
+                    {
+                        column1 = stoi(convert);
+                        if (column1 < 0 || column1 > n)
+                            throw column1;
+                    }
+                    catch (...)
+                    {
+                        cout << "Error, try again:";
+                        cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
+                    }
+                    for (int i = 0; i < convert.size(); i++)
+                    {
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
+                    }
+                }
                 column1 = stoi(convert) - 1;
-                if ((move[0] < 'A' || move[0] > 'Z') || move[0] < 'a' || move[0] > 'z')
+                if ((row1 >= 0 && row1 < m) && (column1 >= 0 && column1 < n))
                 {
                     validMove = false;
                 }
                 else
                 {
                     cout << "You can't make that move, try again:" << endl;
+                    cin >> move;
                 }
                 if (currentBoard[row1][column1] != ' ')
                 {
                     cout << "You can't make that move, try again:" << endl;
                     cin >> move;
-                    currentBoard[row1][column1] = 'a';
+                    currentBoard[row1][column1] = 'b';
                 }
-                currentBoard[row1][column1] = 'a';
+                currentBoard[row1][column1] = 'b';
+                pturn++;
             }
             pturn = 1;
         }
