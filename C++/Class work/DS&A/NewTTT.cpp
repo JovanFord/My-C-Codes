@@ -344,16 +344,43 @@ void makeMove(bool &gameStatus, int &m, int &n, char currentBoard[rows][columns]
                     {
                         column1 = stoi(convert);
                         if (column1 < 0 || column1 > n)
-                            throw 1;
+                            throw column1;
                     }
                     catch (...)
                     {
                         cout << "Error, try again:";
                         cin >> move;
+                        row1 = move[0];
+                        while (row1 >= 32)
+                        {
+                            if (row1 >= 32)
+                            {
+                                row1 -= 32;
+                            }
+                            else if (row1 < 32)
+                            {
+                                break;
+                            }
+                        }
+                        row1 -= 1;
+                        temp1 = move[1];
+                        cout << "temp1:" << temp1 << endl;
+                        temp2 = move[2];
+                        cout << "temp2:" << temp2 << endl;
+                        convert = temp1 + temp2;
+                        cout << "convert:" << convert << endl;
                     }
-                    if (convert >= "0" || convert <= "9")
+                    for (int i = 0; i < convert.size(); i++)
                     {
-                        isNum = true;
+                        if (convert[i] < '0' && convert[i] > '9')
+                        {
+                            isNum = false;
+                        }
+                        else if (convert[i] >= '0' && convert[i] <= '9')
+                        {
+                            isNum = true;
+                            break;
+                        }
                     }
                 }
                 // for (int i = 0; i < convert.size(); i++)
