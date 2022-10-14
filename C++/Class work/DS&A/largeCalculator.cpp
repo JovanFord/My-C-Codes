@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void commas(int, string, string[]);
+void commas(int, string);
 
 int main()
 {
@@ -13,6 +13,7 @@ int main()
     string nums[13] = {"", "", "", "", "", "", "", "", "", "", "", "", ""};
     int numberSize[13];
     string tempProduct[13];
+    int products[13];
     int sumSize, productSize;
     int sumTotal = 0, productTotal = 1;
     string commaSum = "", commaProduct = "";
@@ -85,16 +86,16 @@ int main()
     for (int i = 0; i < numbers; i++)
     {
         cout << endl;
-        for (int j = 0; j < 13 - numberSize[i]; j++)
+        for (int j = 0; j < 21 - numberSize[i]; j++)
         {
             cout << ' ';
         }
-        commas(arrNums[i], currNum, nums);
+        commas(arrNums[i], currNum);
         if (i == numbers - 1)
         {
             cout << endl
                  << "+)" << endl
-                 << "-------------" << endl;
+                 << "---------------------" << endl;
         }
     }
     string sumHold = to_string(sumTotal);
@@ -115,11 +116,11 @@ int main()
         sumSize = sumHold.size();
     }
     int counter = 0, counter2 = 0, holder = sumTotal, holder2 = productTotal;
-    for (int i = 0; i < 13 - sumSize; i++)
+    for (int i = 0; i < 21 - sumSize; i++)
     {
         cout << ' ';
     }
-    commas(sumTotal, commaSum, nums);
+    commas(sumTotal, commaSum);
 
     // multiplication
     cout << endl
@@ -152,35 +153,60 @@ int main()
         oneNum = stoi(commaOneNum);
         tempProduct[i] = to_string((oneNum * multiple) * arrNums[0]);
         multiple /= 10;
+        counter++;
     }
     for (int i = 0; i < numbers; i++)
     {
         cout << endl;
-        for (int j = 0; j < 13 - numberSize[i]; j++)
+        for (int j = 0; j < 21 - numberSize[i]; j++)
         {
             cout << ' ';
         }
-        commas(arrNums[i], currNum, nums);
+        commas(arrNums[i], currNum);
         if (i == numbers - 1)
         {
             cout << endl
                  << "*)" << endl
-                 << "-------------" << endl;
+                 << "---------------------" << endl;
         }
     }
-    for (int i = 0; i < tempProduct.size(); i++)
+    for (int i = 0; i < counter; i++)
+    {
+        numberSize[i] = tempProduct[i].size();
+        if (tempProduct[i].size() >= 4 && tempProduct[i].size() <= 6)
+        {
+            numberSize[i] = tempProduct[i].size() + 1;
+        }
+        else if (tempProduct[i].size() >= 7 && tempProduct[i].size() <= 9)
+        {
+            numberSize[i] = tempProduct[i].size() + 2;
+        }
+        else if (tempProduct[i].size() >= 10 && tempProduct[i].size() <= 12)
+        {
+            numberSize[i] = tempProduct[i].size() + 3;
+        }
+        else if (tempProduct[i].size() >= 13 && tempProduct[i].size() <= 15)
+        {
+            numberSize[i] = tempProduct[i].size() + 4;
+        }
+        else
+        {
+            numberSize[i] = tempProduct[i].size();
+        }
+    }
+    for (int i = 0; i < counter; i++)
     {
         cout << endl;
-        for (int j = 0; j < 13 - numberSize[i]; j++)
+        for (int j = 0; j < 21 - numberSize[i]; j++)
         {
             cout << ' ';
         }
-        commas(tempProduct[i], currNum, nums);
-        if (i == numbers - 1)
+        commas(stoi(tempProduct[i]), currNum);
+        if (i == counter - 1)
         {
             cout << endl
                  << "+)" << endl
-                 << "-------------" << endl;
+                 << "---------------------" << endl;
         }
     }
     if (commaProduct.size() >= 4 && commaProduct.size() <= 6)
@@ -199,17 +225,19 @@ int main()
     {
         counter2 = commaProduct.size();
     }
-    for (int j = 0; j < 13 - counter2; j++)
+    for (int i = 0; i < 13 - counter2; i++)
     {
         cout << ' ';
     }
-    commas(productTotal, currNum, nums);
+    commas(productTotal, currNum);
 }
 
-void commas(int n, string currNum, string nums[13])
+void commas(int n, string currNum)
 {
     int split = 1000;
     currNum = "";
+    string number = to_string(n);
+    // unsigned int offset = num % 3;
     if (n < split)
     {
         currNum += to_string(n);
@@ -217,12 +245,14 @@ void commas(int n, string currNum, string nums[13])
     else
     {
         int remainder = n % split;
-        commas(n / split, currNum, nums);
+        commas(n / split, currNum);
         currNum += ',';
         currNum += to_string(remainder);
-        for (int i = 0; i < 13; i++)
+    }
+    for (int i = 0; i < number.size(); i++)
+    {
+        if (i % 3 == 0 && number.size() % 3 != 0 && i != 0)
         {
-            // nums[i] += currNum;
         }
     }
     cout << currNum;
